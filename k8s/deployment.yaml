@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-web
+  namespace: app
+  labels: { app: demo-web }
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: demo-web }
+  template:
+    metadata:
+      labels: { app: demo-web }
+    spec:
+      containers:
+      - name: demo-web
+        image: <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<ECR_REPO_NAME>:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: PORT
+          value: "8080"
+        - name: MESSAGE
+          valueFrom:
+            configMapKeyRef:
+              name: demo-web-config
+              key: MESSAGE
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: demo-web-secret
+              key: API_KEY
+        readinessProbe:
+          httpGet: { path: "/", port: 8080 }
+          initialDelaySeconds: 3
+          periodSeconds: 5
+        livenessProbe:
+          httpGet: { path: "/", port: 8080 }
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
