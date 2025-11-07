@@ -26,11 +26,11 @@ Users → AWS ALB (Ingress) → Service → Pods
 ---
 
 ## What to Replace (Search & Replace Before First Run)
-- `<AWS_REGION>` → e.g., `ap-south-1`
-- `<AWS_ACCOUNT_ID>` → your account ID
-- `<EKS_CLUSTER_NAME>` → e.g., `demo-eks`
-- `<GHA_OIDC_ROLE_NAME>` → IAM role name assumed by GitHub
-- `<ECR_REPO_NAME>` → e.g., `demo-web`
+- `ap-south-1` → e.g., `ap-south-1`
+- `154980000474` → your account ID
+- `demo-eks` → e.g., `demo-eks`
+- `github-oidc-deploy-role` → IAM role name assumed by GitHub
+- `demo-web` → e.g., `demo-web`
 
 ---
 
@@ -49,7 +49,7 @@ terraform apply -var='aws_region=ap-south-1' -auto-approve
 - Put that role ARN into workflow `role-to-assume`.
 
 ### 3) Wire Kubeconfig in Runner
-Workflow runs: `aws eks update-kubeconfig --name <EKS_CLUSTER_NAME> --region <AWS_REGION>`
+Workflow runs: `aws eks update-kubeconfig --name demo-eks --region ap-south-1`
 
 ### 4) Push Code
 - On push to `main`, CI builds Docker, pushes to ECR, replaces the image in K8s Deployment, and applies manifests.

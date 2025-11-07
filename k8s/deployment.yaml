@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: demo-web
-        image: <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<ECR_REPO_NAME>:latest
+        image: 154980000474.dkr.ecr.ap-south-1.amazonaws.com/demo-web:latest
         ports:
         - containerPort: 8080
         env:
