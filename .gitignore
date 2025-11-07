@@ -1,0 +1,9 @@
+# local installers / archives
+awscliv2.zip
+aws/
+*.zip
+*.exe
+*.msi
+*.iso
+*.mp4
+*.mkv
