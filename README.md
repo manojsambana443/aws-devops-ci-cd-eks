@@ -66,27 +66,12 @@ cd terraform
 terraform init
 terraform apply -var='aws_region=ap-south-1' -auto-approve
 
+
 Terraform outputs your ECR Repository & EKS kubeconfig update command.
 ---
 
-Local Test (Before Cloud Deploy)
-```bash
-docker build -t demo-web:local .
-docker run -p 8080:8080 demo-web:local
-curl http://localhost:8080
 
-
-## Quickstart
-
-### 1) Provision Infra (Terraform)
-```bash
-cd terraform
-terraform init
-terraform apply -var='aws_region=ap-south-1' -auto-approve
-# Output shows: ECR repo URL and a kubeconfig update command.
-```
-
-## Local Test (Before Cloud Deploy)
+## 🐳 Local Test (Before Cloud Deploy)
 
 Before deploying, I verified that the application works locally:
 
@@ -97,7 +82,7 @@ curl http://localhost:8080
 
 ---
 
-```md
+
 ## CI/CD Pipeline Summary (My Explanation)
 
 Whenever I push code to the **main** branch:
@@ -110,6 +95,8 @@ Whenever I push code to the **main** branch:
 
 This removes the need for manual `kubectl` commands.  
 Deployments are now **automated, consistent, and traceable**.
+
+---
 
 ## 📊 Observability & Logging
 
@@ -128,6 +115,8 @@ Deployments are now **automated, consistent, and traceable**.
 - `terraform/` — IaC for VPC + EKS + ECR
 - `monitoring/` — Helm values for kube-prometheus-stack
 - `logging/` — Fluent Bit DaemonSet → CloudWatch
+
+---
 
 ## ✅ What I Learned
 
